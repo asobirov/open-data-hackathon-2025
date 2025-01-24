@@ -6,11 +6,11 @@ import { cn } from "@duck/ui";
 import { ThemeProvider, ThemeToggle } from "@duck/ui/theme";
 import { Toaster } from "@duck/ui/toast";
 
-import { TRPCReactProvider } from "~/trpc/react";
+import { TRPCReactProvider } from "@/trpc/react";
 
-import "~/app/globals.css";
+import "@/app/globals.css";
 
-import { env } from "~/env";
+import { env } from "@/env";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

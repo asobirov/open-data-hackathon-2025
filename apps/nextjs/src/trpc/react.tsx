@@ -9,7 +9,7 @@ import SuperJSON from "superjson";
 
 import type { AppRouter } from "@duck/api";
 
-import { env } from "~/env";
+import { env } from "@/env";
 import { createQueryClient } from "./query-client";
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;

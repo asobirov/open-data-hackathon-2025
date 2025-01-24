@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 
-import { TRPCProvider } from "~/utils/api";
+import { TRPCProvider } from "@/utils/api";
 
 import "../styles.css";
 

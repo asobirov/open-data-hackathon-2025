@@ -15,7 +15,7 @@ import {
 import { Input } from "@duck/ui/input";
 import { toast } from "@duck/ui/toast";
 
-import { api } from "~/trpc/react";
+import { api } from "@/trpc/react";
 
 export function CreatePostForm() {
   const form = useForm({
