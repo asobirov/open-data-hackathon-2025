@@ -1,0 +1,37 @@
+{
+  "name": "@duck/scheduler",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "dev": "NODE_ENV=development pnpm with-env tsx watch --clear-screen=false src/worker.ts",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "with-env": "dotenv -e ../../.env --"
+  },
+  "dependencies": {
+    "@duck/auth": "workspace:*",
+    "@duck/db": "workspace:*",
+    "@duck/schemas": "workspace:^",
+    "@duck/validators": "workspace:*",
+    "@trpc/server": "catalog:",
+    "ai": "^4.1.4",
+    "graphile-worker": "^0.16.6",
+    "superjson": "2.2.1",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@duck/eslint-config": "workspace:*",
+    "@duck/prettier-config": "workspace:*",
+    "@duck/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "tsx": "^4.19.2",
+    "typescript": "catalog:"
+  },
+  "prettier": "@duck/prettier-config"
+}
