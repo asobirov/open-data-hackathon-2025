@@ -17,6 +17,7 @@
     "@duck/api": "workspace:*",
     "@duck/auth": "workspace:*",
     "@duck/db": "workspace:*",
+    "@duck/schemas": "workspace:^",
     "@duck/ui": "workspace:*",
     "@duck/validators": "workspace:*",
     "@t3-oss/env-nextjs": "^0.11.1",

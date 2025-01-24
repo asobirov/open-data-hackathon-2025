@@ -1,7 +1,7 @@
 "use client";
 
 import type { RouterOutputs } from "@duck/api";
-import { CreatePostSchema } from "@duck/db/schema";
+import { CreatePostSchema } from "@duck/schemas/posts";
 import { cn } from "@duck/ui";
 import { Button } from "@duck/ui/button";
 import {

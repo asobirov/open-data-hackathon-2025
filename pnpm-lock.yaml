@@ -239,6 +239,9 @@ importers:
       '@duck/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@duck/schemas':
+        specifier: workspace:^
+        version: link:../../packages/schemas
       '@duck/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -327,6 +330,9 @@ importers:
       '@duck/db':
         specifier: workspace:*
         version: link:../db
+      '@duck/schemas':
+        specifier: workspace:^
+        version: link:../schemas
       '@duck/validators':
         specifier: workspace:*
         version: link:../validators
@@ -441,6 +447,31 @@ importers:
       prisma:
         specifier: ^6.2.1
         version: 6.2.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
+  packages/schemas:
+    dependencies:
+      zod:
+        specifier: 'catalog:'
+        version: 3.23.8
+    devDependencies:
+      '@duck/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@duck/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@duck/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      eslint:
+        specifier: 'catalog:'
+        version: 9.12.0(jiti@2.4.0)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.3.3
       typescript:
         specifier: 'catalog:'
         version: 5.6.3

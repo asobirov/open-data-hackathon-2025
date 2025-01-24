@@ -1,12 +1,20 @@
 {
-  "name": "@duck/api",
-  "version": "0.1.0",
+  "name": "@duck/schemas",
   "private": true,
+  "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
+    },
+    "./posts": {
+      "types": "./dist/posts/index.d.ts",
+      "default": "./src/posts/index.ts"
+    },
+    "./posts/*": {
+      "types": "./dist/posts/*",
+      "default": "./src/posts/*"
     }
   },
   "license": "MIT",
@@ -19,12 +27,6 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@duck/auth": "workspace:*",
-    "@duck/db": "workspace:*",
-    "@duck/schemas": "workspace:^",
-    "@duck/validators": "workspace:*",
-    "@trpc/server": "catalog:",
-    "superjson": "2.2.1",
     "zod": "catalog:"
   },
   "devDependencies": {

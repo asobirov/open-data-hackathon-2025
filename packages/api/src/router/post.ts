@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { CreatePostSchema } from "@duck/schemas/posts";
+
 import type { TRPCRouterRecord } from "@trpc/server";
 import { protectedProcedure, publicProcedure } from "../trpc";
 
@@ -22,15 +24,13 @@ export const postRouter = {
     }),
 
   create: protectedProcedure
-    .input(
-      z.object({
-        name: z.string(),
-        createdById: z.string(),
-      }),
-    )
+    .input(CreatePostSchema)
     .mutation(({ ctx, input }) => {
       return ctx.db.post.create({
-        data: input,
+        data: {
+          ...input,
+          createdById: ctx.session.user.id,
+        },
       });
     }),
 
