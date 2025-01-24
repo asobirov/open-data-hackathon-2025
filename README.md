@@ -1,1 +1,3 @@
-# open-data-hackathon-2025
+# Restarted Ducks
+
+## Team Members:
