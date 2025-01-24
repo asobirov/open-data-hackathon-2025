@@ -16,12 +16,9 @@
   "dependencies": {
     "@duck/auth": "workspace:*",
     "@duck/db": "workspace:*",
-    "@duck/schemas": "workspace:^",
+    "@duck/schemas": "workspace:*",
     "@duck/validators": "workspace:*",
-    "@trpc/server": "catalog:",
-    "ai": "^4.1.4",
     "graphile-worker": "^0.16.6",
-    "superjson": "2.2.1",
     "zod": "catalog:"
   },
   "devDependencies": {
