@@ -24,15 +24,19 @@
     "dev": "tsc",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
-    "push": "pnpm with-env drizzle-kit push",
-    "studio": "pnpm with-env drizzle-kit studio",
+    "db:migrate:deploy": "pnpm with-env prisma migrate deploy",
+    "db:migrate:dev": "pnpm with-env prisma migrate dev",
+    "db:migrate:reset": "pnpm with-env prisma migrate reset",
+    "db:push": "pnpm with-env prisma db push",
+    "db:generate": "pnpm with-env prisma generate",
+    "db:studio": "pnpm with-env prisma studio",
+    "db:seed": "pnpm with-env prisma db seed",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0",
-    "drizzle-orm": "^0.36.4",
-    "drizzle-zod": "^0.5.1",
+    "@prisma/client": "^6.2.1",
+    "@t3-oss/env-core": "^0.11.1",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -40,9 +44,9 @@
     "@duck/prettier-config": "workspace:*",
     "@duck/tsconfig": "workspace:*",
     "dotenv-cli": "^7.4.4",
-    "drizzle-kit": "^0.28.1",
     "eslint": "catalog:",
     "prettier": "catalog:",
+    "prisma": "^6.2.1",
     "typescript": "catalog:"
   },
   "prettier": "@duck/prettier-config"
