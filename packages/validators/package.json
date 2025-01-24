@@ -1,5 +1,5 @@
 {
-  "name": "@acme/validators",
+  "name": "@duck/validators",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -22,12 +22,12 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@duck/eslint-config": "workspace:*",
+    "@duck/prettier-config": "workspace:*",
+    "@duck/tsconfig": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@duck/prettier-config"
 }

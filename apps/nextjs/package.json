@@ -1,5 +1,5 @@
 {
-  "name": "@acme/nextjs",
+  "name": "@duck/nextjs",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,11 +14,11 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@acme/api": "workspace:*",
-    "@acme/auth": "workspace:*",
-    "@acme/db": "workspace:*",
-    "@acme/ui": "workspace:*",
-    "@acme/validators": "workspace:*",
+    "@duck/api": "workspace:*",
+    "@duck/auth": "workspace:*",
+    "@duck/db": "workspace:*",
+    "@duck/ui": "workspace:*",
+    "@duck/validators": "workspace:*",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tanstack/react-query": "catalog:",
     "@trpc/client": "catalog:",
@@ -32,10 +32,10 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tailwind-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@duck/eslint-config": "workspace:*",
+    "@duck/prettier-config": "workspace:*",
+    "@duck/tailwind-config": "workspace:*",
+    "@duck/tsconfig": "workspace:*",
     "@types/node": "^20.17.7",
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",
@@ -46,5 +46,5 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@duck/prettier-config"
 }
