@@ -24,7 +24,7 @@ const getProposalStatus = (type: ProposalStatusName): ProposalStatus => {
   return ProposalStatus.Initiated;
 };
 
-const getCurrency = (curr: CurrencyName) => {
+const getCurrencyMap = (curr: CurrencyName) => {
   const codesMap: Record<CurrencyName, string> = {
     Доллар: "USD",
     Евро: "EUR",
@@ -34,7 +34,7 @@ const getCurrency = (curr: CurrencyName) => {
 
   return {
     name: curr,
-    code: codesMap[curr],
+    code: codesMap[curr] ?? curr,
   };
 };
 
@@ -107,14 +107,207 @@ const getFiles = (item: RawData): Omit<File, "id" | "tradeId">[] => {
   );
 };
 
-const outputETA = (processedCount: number, remainCount: number) => {
+const getOrCreateCompany = async ({
+  inn,
+  name,
+  type,
+}: {
+  inn: string | number | null;
+  name: string;
+  type: CompanyType | null;
+}) => {
+  return await db.$transaction(async (tx) => {
+    const company = await tx.company.findFirst({
+      where: {
+        OR: [
+          {
+            inn: inn ? `${inn}` : null,
+          },
+          {
+            name: name,
+          },
+        ],
+      },
+    });
+
+    if (company) {
+      return company;
+    }
+
+    return await tx.company.create({
+      data: {
+        name: name,
+        type: type,
+        inn: inn ? `${inn}` : null,
+      },
+    });
+  });
+};
+
+const getCategory = async (name: string) => {
+  return await db.$transaction(async (tx) => {
+    const category = await tx.category.findFirst({
+      where: {
+        name: name,
+      },
+    });
+
+    if (category) {
+      return category;
+    }
+
+    return await tx.category.create({
+      data: {
+        name: name,
+      },
+    });
+  });
+};
+
+const getCurrency = async (curr: CurrencyName) => {
+  return await db.$transaction(async (tx) => {
+    const { code, name } = getCurrencyMap(curr);
+    const currency = await tx.currency.findFirst({
+      where: {
+        code: code,
+      },
+    });
+
+    if (currency) {
+      return currency;
+    }
+
+    return await tx.currency.create({
+      data: {
+        code: code,
+        name: name,
+      },
+    });
+  });
+};
+
+const processItem = async (item: RawData) => {
+  const findTrade = await db.trade.findFirst({
+    where: {
+      id: item.trade_id,
+    },
+  });
+
+  if (findTrade) {
+    console.log("Item already exists", item.trade_id);
+    return;
+  }
+  try {
+    const customer = await getOrCreateCompany({
+      inn: item.customer_inn,
+      name: item.customer_name,
+      type: getCompanyType(item.customer_type_name),
+    });
+
+    const provider = await getOrCreateCompany({
+      inn: item.provider_inn,
+      name: item.provider_name,
+      type: null,
+    });
+
+    const category = await getCategory(item.category_name);
+    const currency = await getCurrency(item.currency_name);
+
+    await db.trade.create({
+      data: {
+        id: item.trade_id,
+        displayNo: item.display_no ? `${item.display_no}` : null,
+        deal: {
+          connectOrCreate: {
+            where: {
+              id: item.deal_id,
+            },
+            create: {
+              id: item.deal_id,
+
+              cost: item.deal_cost,
+              statusName: item.deal_status_name,
+              contractDate: parseDate(item.deal_contract_date),
+
+              category: {
+                connect: {
+                  id: category.id,
+                },
+              },
+
+              contractStatusName: item.deal_contract_status_name,
+
+              contractKaznaStatusId: item.deal_contract_kazna_status_id,
+              contractKaznaStatusName: item.deal_contract_kazna_status_name,
+
+              date: parseDate(item.deal_date),
+
+              customer: {
+                connect: {
+                  id: customer.id,
+                },
+              },
+              provider: {
+                connect: {
+                  id: provider.id,
+                },
+              },
+            },
+          },
+        },
+        isLocalManufacturs: item.is_local_manufacturs,
+        participantsCount: item.participants_count,
+        proposalStatus: getProposalStatus(item.proposal_status_name),
+        startCost: item.start_cost,
+        currency: {
+          connect: {
+            id: currency.id,
+          },
+        },
+        files: {
+          createMany: {
+            data: getFiles(item),
+          },
+        },
+        rn: item.rn,
+        unsortedData: {
+          founder: item.founder,
+          total_count: item.total_count,
+          can_comment: item.can_comment,
+        },
+      },
+    });
+  } catch (e) {
+    // Cringe activity, but i gotta debug idk
+    console.log(
+      `Error on item ${item.trade_id}, ${item.customer_inn}, ${item.provider_inn}`,
+    );
+    throw e;
+  }
+
+  console.log("Item processed", item.trade_id);
+};
+
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
+}
+
+function printETA(
+  processedCount: number,
+  totalCount: number,
+  startTime: number,
+) {
   const elapsedMs = Date.now() - startTime;
   const avgMs = elapsedMs / processedCount;
-  const etaMs = avgMs * remainCount;
+  const remaining = totalCount - processedCount;
+  const etaMs = avgMs * remaining;
   const etaSec = (etaMs / 1000).toFixed(1);
-
-  console.log(`  ETA: ~${etaSec}s\n`);
-};
+  console.log(`  ETA: ~${etaSec}s`);
+}
 
 const dirname = path.dirname(new URL(import.meta.url).pathname);
 const rawJson = await fs.readFile(
@@ -127,127 +320,30 @@ const totalItems = data.length;
 console.log(`Found ${totalItems} items in JSON.`);
 const startTime = Date.now();
 
-for (let i = 0; i < totalItems; i++) {
-  const item = data[i];
+// Split into chunks of 10 (adjust to your preference)
+const chunkSize = 10;
+const chunks = chunkArray(data, chunkSize);
 
-  const processedCount = i + 1;
-  const remainCount = data.length - processedCount;
+let processedCount = 0;
 
-  if (!item) {
-    console.log(`[${i + 1}/${totalItems}] Skipping empty item`);
+for (let c = 0; c < chunks.length; c++) {
+  const chunk = chunks[c];
+
+  if (!chunk) {
     continue;
   }
 
-  console.log(`[${i + 1}/${totalItems}] Processing item ${item.trade_id}`);
+  // Process each chunk in parallel
+  await Promise.all(chunk.map((item) => processItem(item)));
 
-  const currency = getCurrency(item.currency_name);
+  processedCount += chunk.length;
+  console.log(
+    `Chunk ${c + 1}/${chunks.length} done (${processedCount} total).`,
+  );
 
-  const findTrade = await db.trade.findFirst({
-    where: {
-      id: item.trade_id,
-    },
-  });
-
-  if (findTrade) {
-    console.log("Item already exists", item.trade_id);
-    outputETA(processedCount, remainCount);
-    continue;
+  if (processedCount < totalItems) {
+    printETA(processedCount, totalItems, startTime);
   }
-
-  await db.trade.create({
-    data: {
-      id: item.trade_id,
-      displayNo: item.display_no ? `${item.display_no}` : null,
-      deal: {
-        connectOrCreate: {
-          where: {
-            id: item.deal_id,
-          },
-          create: {
-            id: item.deal_id,
-
-            cost: item.deal_cost,
-            statusName: item.deal_status_name,
-            contractDate: parseDate(item.deal_contract_date),
-
-            category: {
-              connectOrCreate: {
-                where: {
-                  name: item.category_name,
-                },
-                create: {
-                  name: item.category_name,
-                },
-              },
-            },
-
-            contractStatusName: item.deal_contract_status_name,
-
-            contractKaznaStatusId: item.deal_contract_kazna_status_id,
-            contractKaznaStatusName: item.deal_contract_kazna_status_name,
-
-            date: parseDate(item.deal_date),
-
-            customer: {
-              connectOrCreate: {
-                where: {
-                  inn: item.customer_inn ? `${item.customer_inn}` : undefined,
-                },
-                create: {
-                  name: item.customer_name,
-                  type: getCompanyType(item.customer_type_name),
-                  inn: item.customer_inn ? `${item.customer_inn}` : null,
-                },
-              },
-            },
-            provider: item.provider_inn
-              ? {
-                  connectOrCreate: {
-                    where: {
-                      inn: item.provider_inn
-                        ? `${item.provider_inn}`
-                        : undefined,
-                    },
-                    create: {
-                      name: item.provider_name,
-                      inn: item.provider_inn ? `${item.provider_inn}` : null,
-                    },
-                  },
-                }
-              : undefined,
-          },
-        },
-      },
-      isLocalManufacturs: item.is_local_manufacturs,
-      participantsCount: item.participants_count,
-      proposalStatus: getProposalStatus(item.proposal_status_name),
-      startCost: item.start_cost,
-      currency: {
-        connectOrCreate: {
-          where: {
-            code: currency.code,
-          },
-          create: {
-            code: currency.code,
-            name: currency.name,
-          },
-        },
-      },
-      files: {
-        createMany: {
-          data: getFiles(item),
-        },
-      },
-      rn: item.rn,
-      unsortedData: {
-        founder: item.founder,
-        total_count: item.total_count,
-        can_comment: item.can_comment,
-      },
-    },
-  });
-
-  outputETA(processedCount, remainCount);
-
-  console.log("Item processed", item.trade_id);
 }
+
+console.log("All items processed.");
