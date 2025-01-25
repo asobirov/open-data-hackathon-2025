@@ -50,10 +50,6 @@ catalogs:
 importers:
 
   .:
-    dependencies:
-      '@types/bun':
-        specifier: ^1.2.0
-        version: 1.2.0
     devDependencies:
       '@duck/prettier-config':
         specifier: workspace:*
@@ -61,6 +57,9 @@ importers:
       '@turbo/gen':
         specifier: ^2.3.3
         version: 2.3.3(@types/node@22.10.5)(typescript@5.6.3)
+      '@types/bun':
+        specifier: ^1.2.0
+        version: 1.2.0
       prettier:
         specifier: 'catalog:'
         version: 3.3.3

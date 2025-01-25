@@ -26,12 +26,10 @@
   "devDependencies": {
     "@duck/prettier-config": "workspace:*",
     "@turbo/gen": "^2.3.3",
+    "@types/bun": "^1.2.0",
     "prettier": "catalog:",
     "turbo": "^2.3.3",
     "typescript": "catalog:"
   },
-  "prettier": "@duck/prettier-config",
-  "dependencies": {
-    "@types/bun": "^1.2.0"
-  }
+  "prettier": "@duck/prettier-config"
 }
