@@ -14,7 +14,15 @@
         "./src/*.ts",
         "./src/*.tsx"
       ]
-    }
+    },
+    "./hooks/*": {
+      "types": "./dist/src/hooks/*.d.ts",
+      "default": [
+        "./src/hooks/*.ts",
+        "./src/hooks/*.tsx"
+      ]
+    },
+    "./globals.css": "./src/styles/globals.css"
   },
   "license": "MIT",
   "scripts": {
