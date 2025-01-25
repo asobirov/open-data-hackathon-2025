@@ -1,6 +1,5 @@
-import type * as React from "react"
+import type * as React from "react";
 
-import { SearchForm } from "./search-form"
 import {
   Sidebar,
   SidebarContent,
@@ -12,36 +11,35 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@duck/ui/sidebar"
-import { ThemeToggle } from "@duck/ui/theme";
+} from "@duck/ui/sidebar";
+
+import { SearchForm } from "./search-form";
 
 // This is sample data.
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Getting Started",
-      url: "#",
+      title: "Main",
       items: [
         {
-          title: "Installation",
-          url: "#",
+          title: "Dashboard",
+          isActive: true,
+          url: "/",
         },
         {
-          title: "Project Structure",
-          url: "#",
-          isActive: true,
+          title: "Companies",
+          url: "/companies",
         },
       ],
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <ThemeToggle />
         <SearchForm />
       </SidebarHeader>
       <SidebarContent>
@@ -65,7 +63,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
-
-
