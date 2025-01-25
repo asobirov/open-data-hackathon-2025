@@ -1,3 +1,0 @@
-[submodule "packages/firecrawl"]
-	path = packages/firecrawl
-	url = https://github.com/mendableai/firecrawl
