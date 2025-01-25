@@ -361,7 +361,7 @@ for (let c = 0; c < chunks.length; c++) {
   // For each item in chunk, skip if in local set
   const tasks = chunk.map(async (item) => {
     if (uploadedIds.has(item.trade_id)) {
-      console.log(`Skipped trade ${item.trade_id} (in local cache).`);
+      // console.log(`Skipped trade ${item.trade_id} (in local cache).`);
       return;
     }
     try {
@@ -385,7 +385,7 @@ for (let c = 0; c < chunks.length; c++) {
   );
 
   if (processedCount < totalItems) {
-    printETA(processedCount, totalItems, startTime);
+    // printETA(processedCount, totalItems, startTime);
   }
 }
 
