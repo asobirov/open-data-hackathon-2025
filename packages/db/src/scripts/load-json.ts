@@ -341,7 +341,6 @@ const data = JSON.parse(rawJson) as RawData[];
 
 const totalItems = data.length;
 console.log(`Found ${totalItems} items in JSON.`);
-const startTime = Date.now();
 
 // Split into chunks of 10 (adjust to your preference)
 const chunkSize = 10;
@@ -377,7 +376,6 @@ for (let c = 0; c < chunks.length; c++) {
 
   await Promise.all(tasks);
 
-  // 4) Save local ID cache after each chunk
   await saveUploadedIds(uploadedIds);
 
   console.log(
