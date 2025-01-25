@@ -12,6 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "@duck/ui/table";
+import { Mermaid } from "@/app/_components/mermaid";
+import { MERMAID_CHART_MOCK } from "@/app/mocks/mermaid-chart-mock";
 
 export default function Page() {
   const pathname = usePathname();
@@ -143,7 +145,9 @@ export default function Page() {
         </div>
       </div>
       <label>Mermaid Chart</label>
-      <div className="min-h-[500px] flex-1 rounded-xl bg-muted/50" />
+      <div className="min-h-[500px] h-full w-full flex-1 rounded-xl bg-muted/50 p-4">
+        <Mermaid chart={MERMAID_CHART_MOCK} />
+      </div>
       <div className="flex w-full items-center justify-between">
         <label>AI Report</label>
         <label className="rounded-md bg-muted p-2">Sus/Not sus</label>
