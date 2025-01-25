@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +14,6 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@duck/ui/button";
@@ -37,47 +37,55 @@ import {
   TableRow,
 } from "@duck/ui/table";
 
-const data: Payment[] = [
+const data: Company[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
+    id: "409382",
+    customer: "АО 'AMMOFOS-MAXAM'",
+    provider: "???",
+    category: "Изделия металлические готовые, кроме машин и оборудования",
+    score: 4,
   },
   {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
+    id: "410201",
+    customer: "O zR Milliy gvardiyasi QBB Andijon viloyati QB",
+    provider: "???",
+    category: "Оборудование компьютерное, электронное и оптическое",
+    score: 5,
   },
   {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
+    id: "410236",
+    customer:
+      "Яшнобод тумани мактабгача ва мактаб таълими булими-марказлашган бухгалтерия",
+    provider: "???",
+    category: "Услуги общественного питания",
+    score: 5,
   },
   {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
+    id: "410169",
+    customer:
+      "'RESPUBLIKA IXTISOSLASHTIRILGAN ONA VA BOLA SALOMATLIGI ILMIY -AMALIY TIBBIYOT MARKAZI' DM",
+    provider: "???",
+    category: "Услуги персональные прочи",
+    score: 5,
   },
   {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
+    id: "410242",
+    customer: "АО 'AMMOFOS-MAXAM'",
+    provider: "???",
+    category: "Изделия металлические готовые, кроме машин и оборудования",
+    score: 4,
   },
 ];
 
-export type Payment = {
+export type Company = {
   id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+  customer: string;
+  provider: string;
+  category: string;
+  score: number;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Company>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -101,47 +109,57 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
+    accessorKey: "id",
+    header: "Tender Id",
+    cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
   },
   {
-    accessorKey: "email",
+    accessorKey: "customer",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Customer
           <ArrowUpDown />
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div>{row.getValue("customer")}</div>,
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "provider",
+    header: () => <div className="text-right">Provider</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
+      return (
+        <div className="text-right font-medium">{row.getValue("provider")}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "category",
+    header: () => <div className="text-right">Category</div>,
+    cell: ({ row }) => {
+      return (
+        <div className="text-right font-medium">{row.getValue("category")}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "score",
+    header: () => <div className="text-right">Score</div>,
+    cell: ({ row }) => {
+      return (
+        <div className="text-right font-medium">{row.getValue("score")}</div>
+      );
     },
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
+      const customer = row.original;
 
       return (
         <DropdownMenu>
@@ -153,14 +171,17 @@ export const columns: ColumnDef<Payment>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
+            <DropdownMenuItem>
+              <a href={`https://etender.uzex.uz/lot/${customer.id}`}>
+                View tender source
+              </a>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/companies/[id]" as={`/companies/${customer.id}`}>
+                View tender info
+              </Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -200,10 +221,12 @@ export function CompanyTable() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter customers..."
+          value={
+            (table.getColumn("customer")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("customer")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
