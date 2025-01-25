@@ -195,7 +195,7 @@ const processItem = async (item: RawData) => {
 
   if (findTrade) {
     console.log("Item already exists", item.trade_id);
-    return;
+    return true
   }
   try {
     const customer = await getOrCreateCompany({
@@ -277,6 +277,8 @@ const processItem = async (item: RawData) => {
         },
       },
     });
+
+    return true;
   } catch (e) {
     // Cringe activity, but i gotta debug idk
     console.log(
@@ -309,6 +311,27 @@ function printETA(
   console.log(`  ETA: ~${etaSec}s`);
 }
 
+const UPLOADED_IDS_FILE = path.join(
+  path.dirname(new URL(import.meta.url).pathname),
+  "uploadedIds.json",
+);
+
+async function loadUploadedIds(): Promise<Set<number>> {
+  try {
+    const raw = await fs.readFile(UPLOADED_IDS_FILE, "utf-8");
+    const arr = JSON.parse(raw) as number[];
+    return new Set(arr);
+  } catch {
+    console.log("No local ID cache found, starting fresh.");
+    return new Set();
+  }
+}
+
+async function saveUploadedIds(set: Set<number>): Promise<void> {
+  const arr = Array.from(set);
+  await fs.writeFile(UPLOADED_IDS_FILE, JSON.stringify(arr, null, 2), "utf-8");
+}
+
 const dirname = path.dirname(new URL(import.meta.url).pathname);
 const rawJson = await fs.readFile(
   path.join(dirname, "./new_data.json"),
@@ -326,6 +349,8 @@ const chunks = chunkArray(data, chunkSize);
 
 let processedCount = 0;
 
+const uploadedIds = await loadUploadedIds();
+
 for (let c = 0; c < chunks.length; c++) {
   const chunk = chunks[c];
 
@@ -333,10 +358,28 @@ for (let c = 0; c < chunks.length; c++) {
     continue;
   }
 
-  // Process each chunk in parallel
-  await Promise.all(chunk.map((item) => processItem(item)));
+  // For each item in chunk, skip if in local set
+  const tasks = chunk.map(async (item) => {
+    if (uploadedIds.has(item.trade_id)) {
+      console.log(`Skipped trade ${item.trade_id} (in local cache).`);
+      return;
+    }
+    try {
+      const success = await processItem(item);
+      if (success === true) {
+        uploadedIds.add(item.trade_id);
+      }
+      processedCount++;
+    } catch (err) {
+      console.error(`Error on trade ${item.trade_id}:`, err);
+    }
+  });
 
-  processedCount += chunk.length;
+  await Promise.all(tasks);
+
+  // 4) Save local ID cache after each chunk
+  await saveUploadedIds(uploadedIds);
+
   console.log(
     `Chunk ${c + 1}/${chunks.length} done (${processedCount} total).`,
   );
