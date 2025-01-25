@@ -55,7 +55,6 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           <TRPCReactProvider>
             <SidebarProvider>{props.children}</SidebarProvider>
           </TRPCReactProvider>
-          <div className="absolute bottom-4 right-4"></div>
           <Toaster />
         </ThemeProvider>
       </body>
