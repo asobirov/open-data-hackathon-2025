@@ -2,7 +2,7 @@ import Bun from "bun";
 
 let res = "ok";
 
-for (let i = 2304; res === "ok"; i++) {
+for (let i = 0; res === "ok"; i++) {
   const data = await fetch("https://apietender.uzex.uz/api/common/DealsList", {
     headers: {
       accept: "application/json",
