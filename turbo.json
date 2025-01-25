@@ -46,7 +46,7 @@
     }
   },
   "globalEnv": [
-    "POSTGRES_URL",
+    "DATABASE_URL",
     "AUTH_GITHUB_ID",
     "AUTH_GITHUB_SECRET",
     "AUTH_REDIRECT_PROXY_URL",
