@@ -3,7 +3,8 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 
 import { cn } from "@duck/ui";
-import { ThemeProvider, ThemeToggle } from "@duck/ui/theme";
+import { SidebarProvider } from "@duck/ui/sidebar";
+import { ThemeProvider } from "@duck/ui/theme";
 import { Toaster } from "@duck/ui/toast";
 
 import { TRPCReactProvider } from "@/trpc/react";
@@ -51,10 +52,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCReactProvider>{props.children}</TRPCReactProvider>
-          <div className="absolute bottom-4 right-4">
-            <ThemeToggle />
-          </div>
+          <TRPCReactProvider>
+            <SidebarProvider>{props.children}</SidebarProvider>
+          </TRPCReactProvider>
+          <div className="absolute bottom-4 right-4"></div>
           <Toaster />
         </ThemeProvider>
       </body>
