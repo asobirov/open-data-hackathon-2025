@@ -80,14 +80,14 @@ model Currency {
     id Int @id @default(autoincrement())
 
     name String
-    code String @unique
+    code String
 
     trade Trade[]
 }
 
 model Category {
     id    Int    @id @default(autoincrement())
-    name  String @unique
+    name  String
     deals Deal[]
 }
 
@@ -99,7 +99,7 @@ enum CompanyType {
 model Company {
     id Int @id @default(autoincrement())
 
-    inn  String?      @unique
+    inn  String?
     name String?
     type CompanyType?
 
