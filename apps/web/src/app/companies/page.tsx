@@ -1,9 +1,9 @@
-import { ItemList } from "../_components/item-list";
+import { CompanyTable } from "../_components/company-table";
 
 export default function Page() {
   return (
     <div>
-      <ItemList />
+      <CompanyTable />
     </div>
   );
 }

@@ -4,8 +4,8 @@ import {
   SidebarTrigger,
 } from "@duck/ui/sidebar";
 
-import { ItemList } from "./_components/item-list";
 import { AppSidebar } from "./_components/side-bar";
+import { CompanyTable } from "./_components/company-table";
 
 export default function Page() {
   return (
@@ -27,8 +27,7 @@ export default function Page() {
             <div className="aspect-video rounded-xl bg-muted/50" />
             <div className="aspect-video rounded-xl bg-muted/50" />
           </div>
-          <ItemList />
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+          <CompanyTable />
         </div>
       </SidebarInset>
     </>
