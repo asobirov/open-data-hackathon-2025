@@ -75,3 +75,108 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Currency {
+    id Int @id @default(autoincrement())
+
+    name String
+    code String @unique
+
+    trade Trade[]
+}
+
+model Category {
+    id    Int    @id @default(autoincrement())
+    name  String @unique
+    deals Deal[]
+}
+
+enum CompanyType {
+    Budget
+    Corporate
+}
+
+model Company {
+    id Int @id @default(autoincrement())
+
+    inn  String?      @unique
+    name String?
+    type CompanyType?
+
+    dealsAsCustomer Deal[] @relation("CustomerOfDeal")
+    dealsAsProvider Deal[] @relation("ProviderOfDeal")
+
+    unsortedData Json?
+}
+
+enum ProposalStatus {
+    Initiated // Протокол сформирован
+    Deleted // Удален со стороны заказчика
+}
+
+model Trade {
+    id Int @id // trade_id
+
+    displayNo String?
+
+    startCost Float
+
+    // Final deal of a winner provider
+    dealId Int?
+    deal   Deal? @relation(fields: [dealId], references: [id])
+
+    proposalStatus ProposalStatus
+
+    isLocalManufacturs Boolean
+
+    currency   Currency? @relation(fields: [currencyId], references: [id])
+    currencyId Int?
+
+    participantsCount Int
+
+    rn Int?
+
+    files File[]
+
+    unsortedData Json?
+}
+
+model Deal {
+    id Int @id // deal_id
+
+    cost       Float
+    statusName String
+    date       DateTime?
+
+    contractDate       DateTime?
+    contractStatusName String?
+
+    contractKaznaStatusId   Int?
+    contractKaznaStatusName String?
+
+    trade Trade[]
+
+    customerId Int?
+    customer   Company? @relation("CustomerOfDeal", fields: [customerId], references: [id])
+
+    providerId Int?
+    provider   Company? @relation("ProviderOfDeal", fields: [providerId], references: [id])
+
+    categoryId Int?
+    category   Category? @relation(fields: [categoryId], references: [id])
+}
+
+model File {
+    id Int @id @default(autoincrement())
+
+    type String?
+
+    fileName  String?
+    filePath  String?
+    fileExt   String?
+    fileSizes Int?
+    fileDate  DateTime?
+
+    trade   Trade? @relation(fields: [tradeId], references: [id])
+    tradeId Int?
+}

@@ -32,6 +32,7 @@
     "db:studio": "pnpm with-env prisma studio",
     "db:seed": "pnpm with-env prisma db seed",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "tsx": "pnpm with-env npx tsx",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
