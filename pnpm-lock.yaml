@@ -50,6 +50,10 @@ catalogs:
 importers:
 
   .:
+    dependencies:
+      '@types/bun':
+        specifier: ^1.2.0
+        version: 1.2.0
     devDependencies:
       '@duck/prettier-config':
         specifier: workspace:*
@@ -96,7 +100,7 @@ importers:
         version: 1.13.0
       nitropack:
         specifier: ^2.10.4
-        version: 2.10.4(@planetscale/database@1.19.0)(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3)(typescript@5.6.3)(webpack-sources@3.2.3)
+        version: 2.10.4(@planetscale/database@1.19.0)(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.0)(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3)(typescript@5.6.3)(webpack-sources@3.2.3)
       prettier:
         specifier: 'catalog:'
         version: 3.3.3
@@ -493,6 +497,27 @@ importers:
       prisma:
         specifier: ^6.2.1
         version: 6.2.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
+  packages/langchain-agent:
+    devDependencies:
+      '@duck/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@duck/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@duck/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      eslint:
+        specifier: 'catalog:'
+        version: 9.12.0(jiti@2.4.0)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.3.3
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
@@ -3433,6 +3458,9 @@ packages:
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
 
+  '@types/bun@1.2.0':
+    resolution: {integrity: sha512-5N1JqdahfpBlAv4wy6svEYcd/YfO2GNrbL95JOmFx8nkE6dbK4R0oSE5SpBA4vBRqgrOUAXF8Dpiz+gi7r80SA==}
+
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
@@ -3528,6 +3556,9 @@ packages:
 
   '@types/tinycolor2@1.4.6':
     resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
+
+  '@types/ws@8.5.14':
+    resolution: {integrity: sha512-bd/YFLW+URhBzMXurx7lWByOu+xzU9+kb3RboOteXYDfW+tr+JZa99OyNmPINEGB/ahzKrEuc8rcv4gnpJmxTw==}
 
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
@@ -4013,6 +4044,9 @@ packages:
 
   builtins@1.0.3:
     resolution: {integrity: sha512-uYBjakWipfaO/bXI7E8rq6kpwHRZK5cNYrUv2OzZSI/FvmdMyXJ2tG9dKcjEC5YHmHpUAwsargWIZNWdxb/bnQ==}
+
+  bun-types@1.2.0:
+    resolution: {integrity: sha512-KEaJxyZfbV/c4eyG0vyehDpYmBGreNiQbZIqvVHJwZ4BmeuWlNZ7EAzMN2Zcd7ailmS/tGVW0BgYbGf+lGEpWw==}
 
   busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
@@ -12040,6 +12074,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.0
 
+  '@types/bun@1.2.0':
+    dependencies:
+      bun-types: 1.2.0
+
   '@types/cookie@0.6.0': {}
 
   '@types/debug@4.1.12':
@@ -12151,6 +12189,10 @@ snapshots:
       '@types/node': 20.17.7
 
   '@types/tinycolor2@1.4.6': {}
+
+  '@types/ws@8.5.14':
+    dependencies:
+      '@types/node': 20.17.7
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -12737,6 +12779,11 @@ snapshots:
 
   builtins@1.0.3: {}
 
+  bun-types@1.2.0:
+    dependencies:
+      '@types/node': 20.17.7
+      '@types/ws': 8.5.14
+
   busboy@1.6.0:
     dependencies:
       streamsearch: 1.1.0
@@ -13155,9 +13202,9 @@ snapshots:
 
   dayjs@1.11.13: {}
 
-  db0@0.2.1(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3):
+  db0@0.2.1(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.0)(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3):
     optionalDependencies:
-      drizzle-orm: 0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1)
+      drizzle-orm: 0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.0)(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1)
       mysql2: 3.11.3
 
   debug@2.6.9:
@@ -13296,7 +13343,7 @@ snapshots:
 
   dotenv@16.4.5: {}
 
-  drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1):
+  drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.0)(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1):
     optionalDependencies:
       '@neondatabase/serverless': 0.10.0
       '@opentelemetry/api': 1.9.0
@@ -13305,6 +13352,7 @@ snapshots:
       '@types/pg': 8.11.10
       '@types/react': 18.3.11
       '@vercel/postgres': 0.10.0(utf-8-validate@6.0.4)
+      bun-types: 1.2.0
       mysql2: 3.11.3
       pg: 8.13.1
       postgres: 3.4.4
@@ -15637,7 +15685,7 @@ snapshots:
 
   nice-try@1.0.5: {}
 
-  nitropack@2.10.4(@planetscale/database@1.19.0)(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3)(typescript@5.6.3)(webpack-sources@3.2.3):
+  nitropack@2.10.4(@planetscale/database@1.19.0)(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.0)(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3)(typescript@5.6.3)(webpack-sources@3.2.3):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@netlify/functions': 2.8.2
@@ -15661,7 +15709,7 @@ snapshots:
       cookie-es: 1.2.2
       croner: 9.0.0
       crossws: 0.3.1
-      db0: 0.2.1(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3)
+      db0: 0.2.1(drizzle-orm@0.36.4(@neondatabase/serverless@0.10.0)(@opentelemetry/api@1.9.0)(@planetscale/database@1.19.0)(@prisma/client@6.2.1(prisma@6.2.1))(@types/pg@8.11.10)(@types/react@18.3.11)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.0)(mysql2@3.11.3)(pg@8.13.1)(postgres@3.4.4)(prisma@6.2.1)(react@18.3.1))(mysql2@3.11.3)
       defu: 6.1.4
       destr: 2.0.3
       dot-prop: 9.0.0
