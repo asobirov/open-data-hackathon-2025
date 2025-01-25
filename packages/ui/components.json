@@ -5,13 +5,14 @@
   "tsx": true,
   "tailwind": {
     "config": "../../tooling/tailwind/web.ts",
-    "css": "unused.css",
+    "css": "src/styles/globals.css",
     "baseColor": "zinc",
     "cssVariables": true
   },
   "aliases": {
     "utils": "@duck/ui",
     "components": "src/",
-    "ui": "src/"
+    "ui": "src/",
+    "lib": "@duck/ui"
   }
 }
