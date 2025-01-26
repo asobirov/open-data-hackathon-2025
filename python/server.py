@@ -62,7 +62,7 @@ async def scrape_company_data(company_id: str):
         async def repeating_script(page: Page) -> Page:
             """Executes on every subsequent navigation to keep the session alive."""
             await page.reload()
-            await page.wait_for_timeout(1500)
+            await page.wait_for_timeout(500)
             return page
 
         # Elements to be scraped from main page
