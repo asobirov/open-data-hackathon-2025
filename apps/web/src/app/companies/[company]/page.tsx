@@ -22,33 +22,10 @@ export default function Page() {
   const slug = pathname.split("/")[2];
 
   const { data } = api.deal.byId.useQuery({
-    id: Number(slug)!,
+    id: Number(slug),
   });
 
   console.log(data);
-
-  const MOCK_participants = [
-    {
-      name: "John Doe",
-      reason: "Out of topic",
-      score: 5,
-    },
-    {
-      name: "John Doe 2",
-      reason: "Out of topic",
-      score: 5,
-    },
-    {
-      name: "John Doe 3",
-      reason: "Out of topic",
-      score: 5,
-    },
-    {
-      name: "John Doe 4",
-      reason: "Out of topic",
-      score: 5,
-    },
-  ];
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
@@ -76,13 +53,19 @@ export default function Page() {
             </TableCell>
             <TableCell>{data?.statusName}</TableCell>
           </TableRow>
+          <TableRow>
+            <TableCell className="text-sm opacity-80">
+              Participants amount:
+            </TableCell>
+            <TableCell>{data?.trade[0]?.participantsCount}</TableCell>
+          </TableRow>
         </div>
         <Separator orientation="vertical" className="mx-4" />
         <div>
           <span className="text-sm opacity-80">Files included: </span>
         </div>
       </div>
-      <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+      <div className="grid auto-rows-min grid-cols-2 gap-4">
         <div>
           <label>Customer Info</label>
           <div className="aspect-video gap-8 rounded-xl bg-muted/50 p-4">
@@ -100,7 +83,7 @@ export default function Page() {
               <TableCell className="text-sm opacity-80">
                 Initial amount:
               </TableCell>
-              <TableCell>{data?.trade?.[0]?.startCost} $</TableCell>
+              <TableCell>{data?.trade[0]?.startCost} $</TableCell>
             </TableRow>
             <TableRow>
               <TableCell className="text-sm opacity-80">Deal Amount:</TableCell>
@@ -145,7 +128,7 @@ export default function Page() {
               <TableCell className="text-sm opacity-80">
                 Part of Uzbekistan:
               </TableCell>
-              <TableCell>{data?.trade?.[0]?.isLocalManufacturs}</TableCell>
+              <TableCell>{data?.trade[0]?.isLocalManufacturs}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell className="text-sm opacity-80">
@@ -153,34 +136,6 @@ export default function Page() {
               </TableCell>
               <TableCell>4</TableCell>
             </TableRow>
-          </div>
-        </div>
-        <div>
-          {/*<label>Other participants</label>
-          <div className="aspect-video rounded-xl bg-muted/50 p-2">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Company Name</TableHead>
-                  <TableHead>Diqualification Reason</TableHead>
-                  <TableHead>Score</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {MOCK_participants.map((part) => (
-                  <TableRow key={part.name}>
-                    <TableCell className="font-medium">{part.name}</TableCell>
-                    <TableCell>{part.reason}</TableCell>
-                    <TableCell>{part.score}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-          */}
-          <label>Number of participants</label>
-          <div className="aspect-video rounded-xl bg-muted/50 p-2">
-            <p>{data?.trade?.[0]?.participantsCount}</p>
           </div>
         </div>
       </div>
