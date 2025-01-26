@@ -14,11 +14,13 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
+    "@ai-sdk/groq": "^1.1.3",
     "@duck/auth": "workspace:*",
     "@duck/db": "workspace:*",
     "@duck/schemas": "workspace:*",
     "@duck/validators": "workspace:*",
     "@mendable/firecrawl-js": "^1.15.7",
+    "ai": "^4.1.6",
     "graphile-worker": "^0.16.6",
     "zod": "catalog:"
   },

@@ -25,13 +25,12 @@ export default function Page() {
     id: Number(slug),
   });
 
-  console.log(data);
+  const onAiAnalyze = () => {};
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
       <div className="flex w-full items-center justify-between">
         <label>Tender Info</label>
-        <Button variant="secondary">Analyze</Button>
       </div>
       <div className="flex min-h-[200px] w-full flex-1 rounded-xl bg-muted/50 p-2">
         <div className="gap-4">
@@ -61,9 +60,9 @@ export default function Page() {
           </TableRow>
         </div>
         <Separator orientation="vertical" className="mx-4" />
-        <div>
+        {/* <div>
           <span className="text-sm opacity-80">Files included: </span>
-        </div>
+        </div> */}
       </div>
       <div className="grid auto-rows-min grid-cols-2 gap-4">
         <div>
@@ -83,7 +82,7 @@ export default function Page() {
               <TableCell className="text-sm opacity-80">
                 Initial amount:
               </TableCell>
-              <TableCell>{data?.trade[0]?.startCost} $</TableCell>
+              <TableCell>{data?.trade[0]?.startCost}$</TableCell>
             </TableRow>
             <TableRow>
               <TableCell className="text-sm opacity-80">Deal Amount:</TableCell>
@@ -145,7 +144,7 @@ export default function Page() {
       </div>
       <div className="flex w-full items-center justify-between">
         <label>AI Report</label>
-        <label className="rounded-md bg-muted p-2">Sus/Not sus</label>
+        <Button variant="secondary">Analyze</Button>
       </div>
       <div className="min-h-[200px] flex-1 rounded-xl bg-muted/50" />
     </div>

@@ -1,6 +1,9 @@
 import type { z } from "zod";
 
 import type { TestTaskSchema } from "./test.task";
+import type { GenerateReportSchema } from "@/tasks/gen-report";
+import { generateReportTask } from "@/tasks/gen-report";
+import { startReportGeneration } from "@/tasks/start-report-generation";
 import { testTask } from "./test.task";
 
 declare global {
@@ -12,10 +15,13 @@ declare global {
 // TODO: fix inference
 type TaskNameToPayloadMap = {
   "test-task": z.infer<typeof TestTaskSchema>;
-};
+  "generate-report-task": z.infer<typeof GenerateReportSchema>;
+}
 
 export const tasks = [
   testTask,
+  generateReportTask,
+  startReportGeneration,
 ] as const;
 
 type TasksList<T extends typeof tasks = typeof tasks> = Record<
