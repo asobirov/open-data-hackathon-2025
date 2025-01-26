@@ -12,12 +12,20 @@ import {
   TableHeader,
   TableRow,
 } from "@duck/ui/table";
+
 import { Mermaid } from "@/app/_components/mermaid";
 import { MERMAID_CHART_MOCK } from "@/app/mocks/mermaid-chart-mock";
+import { api } from "@/trpc/react";
 
 export default function Page() {
   const pathname = usePathname();
   const slug = pathname.split("/")[2];
+
+  const { data } = api.deal.byId.useQuery({
+    id: Number(slug)!,
+  });
+
+  console.log(data);
 
   const MOCK_participants = [
     {
@@ -49,24 +57,25 @@ export default function Page() {
         <Button variant="secondary">Analyze</Button>
       </div>
       <div className="flex min-h-[200px] w-full flex-1 rounded-xl bg-muted/50 p-2">
-        <div className="flex w-[300px] gap-4">
-          <div className="flex flex-col">
-            <p className="pt-[7px] text-sm opacity-80">Lot number: </p>
-            <p className="pt-[7px] text-sm opacity-80">Category: </p>
-            <p className="pt-[7px] text-sm opacity-80">Deal amount: </p>
-            <p className="pt-[7px] text-sm opacity-80">Delivery Status: </p>
-          </div>
-          <div>
-            <a
-              className="ml-2 text-xl font-bold underline"
-              href={`https://etender.uzex.uz/lot/${slug}`}
-            >
-              {slug}
-            </a>
-            <p className="ml-2 text-xl">Category</p>
-            <p className="ml-2 text-xl">3 000 000 $</p>
-            <p className="ml-2 text-xl">Not delivered</p>
-          </div>
+        <div className="gap-4">
+          <TableRow className="text-start">
+            <TableCell className="text-sm opacity-80">Lot number:</TableCell>
+            <TableCell>{slug}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="text-sm opacity-80">Category:</TableCell>
+            <TableCell>{data?.category?.name}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="text-sm opacity-80">Deal amount:</TableCell>
+            <TableCell>{data?.cost} $</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="text-sm opacity-80">
+              Delivery Status:
+            </TableCell>
+            <TableCell>{data?.statusName}</TableCell>
+          </TableRow>
         </div>
         <Separator orientation="vertical" className="mx-4" />
         <div>
@@ -76,52 +85,78 @@ export default function Page() {
       <div className="grid auto-rows-min gap-4 md:grid-cols-3">
         <div>
           <label>Customer Info</label>
-          <div className="flex aspect-video gap-8 rounded-xl bg-muted/50 p-4">
-            <div className="flex flex-col">
-              <p className="pt-[7px] text-sm opacity-80">Company Name: </p>
-              <p className="pt-[7px] text-sm opacity-80">
-                Responsible Person:{" "}
-              </p>
-              <p className="pt-[7px] text-sm opacity-80">Initial amount: </p>
-              <p className="pt-[7px] text-sm opacity-80">Deal Amount: </p>
-              <p className="pt-[7px] text-sm opacity-80">
-                Minimum required score:{" "}
-              </p>
-            </div>
-            <div>
-              <p className="ml-2 text-xl">Name</p>
-              <p className="ml-2 text-xl">Shavkat</p>
-              <p className="ml-2 text-xl">2 000 000 $</p>
-              <p className="ml-2 text-xl">2 500 000 $</p>
-              <p className="ml-2 text-xl">3/5</p>
-            </div>
+          <div className="aspect-video gap-8 rounded-xl bg-muted/50 p-4">
+            <TableRow className="text-start">
+              <TableCell className="text-sm opacity-80">
+                Company Name:
+              </TableCell>
+              <TableCell>{data?.customer?.name}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">INN:</TableCell>
+              <TableCell>{data?.customer?.inn}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">
+                Initial amount:
+              </TableCell>
+              <TableCell>{data?.trade?.[0]?.startCost} $</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">Deal Amount:</TableCell>
+              <TableCell>{data?.cost}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">Score:</TableCell>
+              <TableCell>{data?.statusName}</TableCell>
+            </TableRow>
           </div>
         </div>
         <div>
           <label>Provider Info</label>
-          <div className="flex aspect-video gap-8 rounded-xl bg-muted/50 p-4">
-            <div className="flex flex-col">
-              <p className="pt-[7px] text-sm opacity-80">Company Name: </p>
-              <p className="pt-[7px] text-sm opacity-80">Market Items:</p>
-              <p className="pt-[7px] text-sm opacity-80">Director: </p>
-              <p className="pt-[7px] text-sm opacity-80">Constitutor: </p>
-              <p className="pt-[7px] text-sm opacity-80">Уставной фонд:</p>
-              <p className="pt-[7px] text-sm opacity-80">Credibility Score:</p>
-              <p className="pt-[7px] text-sm opacity-80">Winner Score:</p>
-            </div>
-            <div>
-              <p className="ml-2 text-xl">Company Name</p>
-              <p className="ml-2 text-xl">Deasel engines</p>
-              <p className="ml-2 text-xl">Shavkat</p>
-              <p className="ml-2 text-xl">Andrey</p>
-              <p className="ml-2 text-xl">2 000 000 $</p>
-              <p className="ml-2 text-xl">3/5</p>
-              <p className="ml-2 text-xl">3/5</p>
-            </div>
+          <div className="aspect-video gap-8 rounded-xl bg-muted/50 p-4">
+            <TableRow className="text-start">
+              <TableCell className="text-sm opacity-80">
+                Company Name:
+              </TableCell>
+              <TableCell>{data?.provider?.name}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">
+                Market Items:
+              </TableCell>
+              <TableCell>{data?.category?.name}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">Director:</TableCell>
+              <TableCell>{data?.provider?.name} $</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">Constitutor:</TableCell>
+              <TableCell>Null</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">
+                Уставной фонд:
+              </TableCell>
+              <TableCell>Null</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">
+                Part of Uzbekistan:
+              </TableCell>
+              <TableCell>{data?.trade?.[0]?.isLocalManufacturs}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="text-sm opacity-80">
+                Winner Score:
+              </TableCell>
+              <TableCell>4</TableCell>
+            </TableRow>
           </div>
         </div>
         <div>
-          <label>Other participants</label>
+          {/*<label>Other participants</label>
           <div className="aspect-video rounded-xl bg-muted/50 p-2">
             <Table>
               <TableHeader>
@@ -142,10 +177,15 @@ export default function Page() {
               </TableBody>
             </Table>
           </div>
+          */}
+          <label>Number of participants</label>
+          <div className="aspect-video rounded-xl bg-muted/50 p-2">
+            <p>{data?.trade?.[0]?.participantsCount}</p>
+          </div>
         </div>
       </div>
       <label>Mermaid Chart</label>
-      <div className="min-h-[500px] h-full w-full flex-1 rounded-xl bg-muted/50 p-4">
+      <div className="h-full min-h-[500px] w-full flex-1 rounded-xl bg-muted/50 p-4">
         <Mermaid chart={MERMAID_CHART_MOCK} />
       </div>
       <div className="flex w-full items-center justify-between">

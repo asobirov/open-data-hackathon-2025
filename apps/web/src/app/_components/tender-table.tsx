@@ -38,6 +38,24 @@ import {
 } from "@duck/ui/table";
 
 import { api } from "@/trpc/react";
+/*
+  * {
+    "id": 408075,
+    "displayNo": "24121006408075",
+    "startCost": 54058400,
+    "dealId": 143353,
+    "proposalStatus": "Initiated",
+    "isLocalManufacturs": false,
+    "currencyId": 4,
+    "participantsCount": 4,
+    "rn": 1,
+    "unsortedData": {
+        "founder": null,
+        "can_comment": 0,
+        "total_count": 114314
+    }
+}
+  * */
 
 export type Company = {
   id: string;
@@ -151,8 +169,8 @@ export const columns: ColumnDef<Company>[] = [
   },
 ];
 
-export function CompanyTable() {
-  const { data: companies } = api.company.all.useInfiniteQuery(
+export function TenderTable() {
+  const { data: companies } = api.deal.all.useInfiniteQuery(
     {
       limit: 10,
     },
@@ -160,15 +178,18 @@ export function CompanyTable() {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     },
   );
+  console.log(companies);
+
 
   const adaptedCompanies = React.useMemo(() => {
     if (!companies?.pages) return []; // Ensure pages exist
     return companies.pages.flatMap((page) =>
-      page.items.map((company) => ({
-        id: company.id,
-        customer: company.name,
-        provider: company.inn,
-        category: company.type,
+      page?.deals?.map((company) => ({
+        id: company.trade?.[0]?.dealId,
+        customer: company?.customer?.name,
+        provider: company?.provider?.name,
+        category: company?.category?.name,
+
         score: 4,
       })),
     );
