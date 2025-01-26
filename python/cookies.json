@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Session_id",
+    "value": "3:1737559312.5.0.1737559312680:V2tGkg:74a8.1.2:1|725632706.-1.2.1:136097550.3:1737559312|3:10301661.922363.4jpoTR6HhvsO2r266HQFpyOoSfk",
+    "domain": "myorg.uz",
+    "path": "/"
+  },
+  {
+    "name": "__Host-next-auth.csrf-token",
+    "value": "9188f9d4e23f121dbbd785853a5c1fd742e054948ec79ac00cdc9c9a4fc82b55%7C2757d34a20117f7ef2da66353a5df53d5e9ec7beb7467a253bf99590284c5e26",
+    "domain": "myorg.uz",
+    "path": "/"
+  },
+  {
+    "name": "__Secure-next-auth.callback-url",
+    "value": "https%3A%2F%2Fmyorg.uz%2Fen",
+    "domain": "myorg.uz",
+    "path": "/"
+  },
+  {
+    "name": "__Secure-next-auth.session-token",
+    "value": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..vGv5kTrV3utYGx6c.1KFxwfWBEPPgHzjk4QVsf95z5PbGw_CpG5AdvejdC2CejC6-2wjMNyg2XIekBABXBd-4wulAlwqwdQsS3tmfQOoBb6iONAbR_3kEcYVwRfrnmnOWm2lGkLN6r5Y-oFN6g-b8wIPWCdYAhxOkkm0x0c-uSFt8wvr6eHpdPw5HIIltFEQvNytsspQsqf9CEA0jYX3qrVwQI1T3ZZN9E66H3LouZAsDYl1jSLkZlJPHTenwpJ4HlUq4bRH62KqjGlxnRlRoXt5am3HCmG1d-u64EYsp2azLjnL144RNmX67V2IM_l1c4oY_3cdFtt8FUaXwhNcMxu3KBB9hkXrhahFEfWDWtTmJPGth0JjT7V73gmdSIpweTsbiUwZPt6mZQs_Av5cN6cPIg0N_5H7mllDPfl3YIIeW_lnbgMAsC4n4BIcD2OPBccLeLtWaswV4K34juWqWhtZ6C9Fp-vmc-nGBtMetrI3n_ypisuAlzLIOjuNyDS-jTkHrgiEiePihFzW0ZVqd3QXoO6B4Zag9XXqHIRe33LAs2S7Lq_gWrrpBpurFrbOlW7TqrE6r4WLsiFSTkgDvZ3slx_X8CFv1MpFqPMHvqHaQwgYUNLah695W9Rkix9E3k_eqUleDx2274xkzCHzoG3cRlIwCcRMF0lhsbadWdvcNEucRHEXTV9_yojUqktiWLM46uqwt9baKhnlkL72iP6Q255TNdp5lZeJpQvCUmM74EdmXIe8gz42cfs5vavyje-3cmKJfJ_ZLis94BFEI0JM8dNo4lnpBt5JamKkKGhLZ9FylzSbsUm3mGLyZRelKP2Jh8_tMUhHLsU3Qfu4AlU3ezZDHySddkWVtbJdlIEShIwo1vCVRO_3FybGo1dKwUt4u3x5uCTQQrIf2sbHCtgeJE7J-MHNG9HxXm5qFJnpxNrKd-Lf2xOidPthA3uadOK0DMf1t0mkdAbcVJB-RHeFZaGCm6pcWuQbwILsSlTeXkq5M0p4S_3gQrw89BNuRBiwCXy1mjiF4RjQ0W4G7WsAFnqThYe7SxYdjxOUMiH8ulbtkTYRlRSot4PpKUYO8INVjM_vrPLbOsBurgFiF-UL5zhTBBP7D4jdhtX0ib-k2JCl0BYqIYhLoiXlmq-jW90xmXOt6JOzc7cyKIzt4FHaPEX5603DZdNoHRPAsL6rJPlQexVUmJzAlpg-Pr9wekrsWHWBvvIeaoemUNGnBM1hXsKbhmFsAP3yy_yTVBUCPZxgSMOLfiFC7MCamYfDszdzNdxviffOWOOJKEF-2gDvrj-Ti0W5cD44P4OzLrhDP6OgCXyquephlj-3zJrINsroMFBBiRLb5vnFgoVR7bmjfF5db6i610zD2KA9uo7aitYkj4mU5FAAaeiXCJg8p4Bn3e6_0C4lAN-N4k4Im1cA6eVGYyHY2wtFTrFfghM0BvvKI8t2Tpi0SVWhr71YRK68ETVxrkBg-WGSW59vxRWTEw3ST4fVIwpkCWqQvECA_JnS2o8kowZOygHjYFcCsQA-QuCUkuTjsb4lQlfCJYLm9PpL0l134MhQ6H6D_0ddUy46AQfhQIZXbulGISRjtOVyktv83mnMxt0eZSCCVUxYXZvavKhc-vEWY0QZpCzdE6wfcA5sSXrkoRKURjS_UqIpgLF8mqgEcMhaLb5lvQ4VxllpOfvTcQ6BiFBSQD-Z52J7RW62LamUN8sl02u19xjCoxQNjuFvmrAdqY2lmdZiSZvXVARf_Gidg6o50ijntBA9vnBeWuFHTZqYQz2KuI3pVQ-on7SVKcDAOpI0STBa8USwVwKoSctF3VFiE8JCJph9KqSof48cBRGP1JONfZjqS9bxd61_glRiGOD3yCJ4mu2awPSfUZLQ.EYQFlKdmFnGYea5azclvag",
+    "domain": "myorg.uz",
+    "path": "/"
+  }
+]

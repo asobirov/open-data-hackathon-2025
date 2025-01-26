@@ -10,18 +10,27 @@
   "scripts": {
     "build": "tsc",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "dev": "tsc",
+    "dev": "pnpm with-env tsx watch ./src/index.ts",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "with-env": "dotenv -e ../../.env --"
   },
   "devDependencies": {
     "@duck/eslint-config": "workspace:*",
     "@duck/prettier-config": "workspace:*",
     "@duck/tsconfig": "workspace:*",
+    "@types/pdf-parse": "^1.1.4",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@duck/prettier-config"
+  "prettier": "@duck/prettier-config",
+  "dependencies": {
+    "@langchain/community": "^0.3.27",
+    "@langchain/core": "^0.3.36",
+    "axios": "^1.7.9",
+    "llamaindex": "^0.8.31",
+    "pdf-parse": "^1.1.1"
+  }
 }
