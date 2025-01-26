@@ -49,7 +49,6 @@ export default function Page() {
       score: 5,
     },
   ];
-  
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
@@ -170,7 +169,9 @@ export default function Page() {
         <label>AI Report</label>
         <Button variant="secondary">Analyze</Button>
       </div>
-      <div className="min-h-[200px] flex-1 rounded-xl bg-muted/50" />
+      <div className="min-h-[200px] flex-1 rounded-xl bg-muted/50">
+        {data?.report}
+      </div>
     </div>
   );
 }

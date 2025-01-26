@@ -1,8 +1,10 @@
+import { createGroq } from "@ai-sdk/groq";
 import { generateText } from "ai";
 import { z } from "zod";
 
 import { db } from "@duck/db";
 
+import { env } from "@/env";
 import { createTask } from "@/utils";
 
 export const GenerateReportSchema = z.object({
@@ -33,7 +35,14 @@ export const generateReportTask = createTask({
 
     // GENERATE REPORT
 
-    const report = null;
+    const res = await fetch(`http://localhost:3000/api/ai/${trade.dealId}`);
+
+    if (!res.ok) {
+      console.error("Failed to generate report");
+      return;
+    }
+
+    const report = await res.text();
 
     await db.trade.update({
       where: {
