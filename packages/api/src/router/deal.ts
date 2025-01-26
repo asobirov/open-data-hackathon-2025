@@ -3,7 +3,7 @@ import { z } from "zod";
 import type { TRPCRouterRecord } from "@trpc/server";
 import { publicProcedure } from "../trpc";
 
-export const tradeRouter = {
+export const dealRouter = {
   all: publicProcedure
     .input(
       z.object({
@@ -12,28 +12,29 @@ export const tradeRouter = {
       }),
     )
     .query(async ({ ctx, input: { limit = 20, cursor } }) => {
-      const trades = await ctx.db.trade.findMany({
+      const deals = await ctx.db.deal.findMany({
         take: limit + 1,
         cursor: cursor
           ? {
               id: cursor,
             }
           : undefined,
-        orderBy: {
-          deal: {
-            date: "desc",
-          },
+        include: {
+          category: true,
+          customer: true,
+          provider: true,
+          trade: true,
         },
       });
 
       let nextCursor: typeof cursor | undefined = undefined;
-      if (trades.length > limit) {
-        const nextItem = trades.pop();
+      if (deals.length > limit) {
+        const nextItem = deals.pop();
         nextCursor = nextItem!.id;
       }
 
       return {
-        trades,
+        deals,
         nextCursor,
       };
     }),
@@ -41,9 +42,15 @@ export const tradeRouter = {
   byId: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => {
-      return ctx.db.trade.findFirst({
+      return ctx.db.deal.findFirst({
         where: {
           id: input.id,
+        },
+        include: {
+          category: true,
+          customer: true,
+          provider: true,
+          trade: true,
         },
       });
     }),
