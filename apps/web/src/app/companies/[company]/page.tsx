@@ -25,7 +25,31 @@ export default function Page() {
     id: Number(slug),
   });
 
-  const onAiAnalyze = () => {};
+  console.log(data);
+
+  const MOCK_participants = [
+    {
+      name: "John Doe",
+      reason: "Out of topic",
+      score: 5,
+    },
+    {
+      name: "John Doe 2",
+      reason: "Out of topic",
+      score: 5,
+    },
+    {
+      name: "John Doe 3",
+      reason: "Out of topic",
+      score: 5,
+    },
+    {
+      name: "John Doe 4",
+      reason: "Out of topic",
+      score: 5,
+    },
+  ];
+  
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">

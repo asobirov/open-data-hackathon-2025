@@ -27,7 +27,7 @@ const getTenderReport = async (dealId: number) => {
   const message = new HumanMessage(`Give me the report about this company, here is the provider: ${provider_info.data}, and here is the customer: ${customer_info.data}`);
   console.log(message);
 
-  return message;
+  return message.content.toString();
 };
 
 export async function GET(
