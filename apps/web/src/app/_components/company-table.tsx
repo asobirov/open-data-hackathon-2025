@@ -72,7 +72,7 @@ export const columns: ColumnDef<Company>[] = [
   },
   {
     accessorKey: "id",
-    header: "Tender Id",
+    header: "Company Id",
     cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
   },
   {
@@ -83,7 +83,7 @@ export const columns: ColumnDef<Company>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Customer
+          Company Name
           <ArrowUpDown />
         </Button>
       );
@@ -92,7 +92,7 @@ export const columns: ColumnDef<Company>[] = [
   },
   {
     accessorKey: "provider",
-    header: () => <div className="text-right">Provider</div>,
+    header: () => <div className="text-right">INN</div>,
     cell: ({ row }) => {
       return (
         <div className="text-right font-medium">{row.getValue("provider")}</div>
