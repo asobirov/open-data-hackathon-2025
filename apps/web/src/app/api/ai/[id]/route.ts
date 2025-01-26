@@ -1,3 +1,4 @@
+import { HumanMessage } from "@langchain/core/messages";
 import axios from "axios";
 
 import { db } from "@duck/db";
@@ -23,9 +24,10 @@ const getTenderReport = async (dealId: number) => {
     `http://localhost:8000/scrape/${data?.customer?.inn}`,
   );
 
-  console.log(provider_info, customer_info);
+  const message = new HumanMessage(`Give me the report about this company, here is the provider: ${provider_info.data}, and here is the customer: ${customer_info.data}`);
+  console.log(message);
 
-  return [provider_info, customer_info];
+  return message;
 };
 
 export async function GET(
