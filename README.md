@@ -4,7 +4,7 @@
 
 ### Team Members:
 - Sabrina Babakulova
-- Akbrashokh Sobirov
+- Akbarshokh Sobirov
 - Saidbek Abdiganiev
 
 ## Summary 
